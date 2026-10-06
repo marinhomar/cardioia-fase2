@@ -6,64 +6,81 @@
 
 <br>
 
-# Nome do projeto
+# CardioIA – Fase 2: Diagnóstico Automatizado (IA no Estetoscópio Digital)
 
-## Nome do grupo
+## Grupo 79
 
-## 👨‍🎓 Integrantes: 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 1</a>
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 2</a>
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 3</a> 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 4</a> 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 5</a>
+## 👨‍🎓 Integrante:
+- Marlon Paulino Marinho – RM566793
 
 ## 👩‍🏫 Professores:
-### Tutor(a) 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do Tutor</a>
+### Tutor(a)
+- Leonardo Ruiz Orabona
 ### Coordenador(a)
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do Coordenador</a>
+- André Godoi Chiovato
 
+## 🎥 Vídeo de demonstração  # TROCAR LINK , N ESQUECER APOS GRAVAR ################
+[LINK DO VÍDEO]
 
 ## 📜 Descrição
 
-*Descreva seu projeto com base no texto do PBL (até 600 palavras)*
+Nesta fase do CardioIA, simulei um "estetoscópio digital": um módulo que lê textos de pacientes (inclusive algumas variações do português como gírias locais ou sinônimos, reconhece sintomas e sugere um diagnóstico ou um nível de risco. O projeto foi dividido em duas partes para melhor organização.
 
+**Parte 1 – Extração de sintomas e diagnóstico (NLP baseado em regras)**
+
+- `frases.txt`: 10 relatos de pacientes, cada um com o que a pessoa sente, quando começou e como isso afeta a rotina.
+- `mapa_conhecimento.csv`: mapa que liga sintomas (Sintoma 1 e Sintoma 2) a três doenças: Infarto, Angina e Insuficiência Cardíaca.
+- `sinonimos.csv`: dicionário com jeitos populares de falar o mesmo sintoma (ex.: "agonia no peito" → "dor no peito", "canseira" → "cansaço constante", "canela inchada" → "tornozelos inchados"). Paciente não fala como livro de medicina, então essa camada traduz a linguagem do dia a dia antes da busca.
+- O código padroniza o texto (minúsculo e sem acento), troca os sinônimos, procura os sintomas do mapa e dá 1 ponto para cada doença encontrada. Vence a doença com mais pontos.
+- Em caso de empate, o resultado aparece como "Inconclusivo" e o sistema sugere priorizar a doença mais grave (Infarto > Angina > Insuficiência Cardíaca), seguindo a lógica de triagem de pronto-socorro: na dúvida, trata como o caso mais sério.
+
+Resultado: as 10 frases foram diagnosticadas, e frases novas escritas de forma popular também foram reconhecidas por causa dos sinônimos.
+
+**Parte 2 – Classificador de risco (Machine Learning)**
+
+- `frases_risco.csv`: 40 frases rotuladas (20 "alto risco" e 20 "baixo risco").
+- As frases foram transformadas em números com **TF-IDF** e usadas para treinar uma **Regressão Logística** (Scikit-learn).
+- Separação de 75% para treino (30 frases) e 25% para teste (10 frases), mantendo a proporção entre as classes.
+
+Resultado: **acurácia de 90%** nas 10 frases de teste.
+
+**Limitações e viés observados**
+
+- O único erro foi na frase "dormi mal e acordei com sono" (baixo risco), classificada como alto risco. A palavra "acordei" apareceu no treino em "acordei sufocado", e o TF-IDF olha o peso das palavras, não o sentido da frase. Isso mostra como uma base pequena pode criar associações erradas.
+- Com só 40 frases, a acurácia muda bastante dependendo de quais frases caem no teste. Em um sistema real, seria preciso uma base muito maior e revisada por profissionais de saúde.
+- O mapa de conhecimento é simplificado: alguns sintomas, como falta de ar, aparecem em mais de uma doença na vida real. Este projeto é acadêmico e não substitui avaliação médica.
+- Próxima evolução: tratar palavras de intensidade ("dor da peste", "dor forte") como um peso extra no risco, e não como sintoma.
 
 ## 📁 Estrutura de pastas
 
-Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
-
-- <b>.github</b>: Nesta pasta ficarão os arquivos de configuração específicos do GitHub que ajudam a gerenciar e automatizar processos no repositório.
-
-- <b>assets</b>: aqui estão os arquivos relacionados a elementos não-estruturados deste repositório, como imagens.
-
-- <b>config</b>: Posicione aqui arquivos de configuração que são usados para definir parâmetros e ajustes do projeto.
-
-- <b>document</b>: aqui estão todos os documentos do projeto que as atividades poderão pedir. Na subpasta "other", adicione documentos complementares e menos importantes.
-
-- <b>scripts</b>: Posicione aqui scripts auxiliares para tarefas específicas do seu projeto. Exemplo: deploy, migrações de banco de dados, backups.
-
-- <b>src</b>: Todo o código fonte criado para o desenvolvimento do projeto ao longo das 7 fases.
-
-- <b>README.md</b>: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
+- **assets**: imagens do projeto.
+- **config**, **scripts**, **document**: pastas do modelo FIAP (sem uso nesta fase).
+- **src/parte1**:
+  - `frases.txt` – 10 relatos de pacientes
+  - `mapa_conhecimento.csv` – sintomas x doenças
+  - `sinonimos.csv` – linguagem popular x termo do mapa
+  - `parte1_extracao.ipynb` – código de extração e diagnóstico
+- **src/parte2**:
+  - `frases_risco.csv` – 40 frases rotuladas
+  - `parte2_classificador.ipynb` – TF-IDF, treino e avaliação
+- **README.md**: este arquivo.
 
 ## 🔧 Como executar o código
 
-*Acrescentar as informações necessárias sobre pré-requisitos (IDEs, serviços, bibliotecas etc.) e instalação básica do projeto, descrevendo eventuais versões utilizadas. Colocar um passo a passo de como o leitor pode baixar o seu código e executá-lo a partir de sua máquina ou seu repositório. Considere a explicação organizada em fase.*
+1. Abra o notebook desejado no GitHub e clique em **Open in Colab**.
+2. No Colab, clique em **Ambiente de execução → Executar tudo**.
+3. Não é preciso fazer upload de arquivos: os notebooks leem os dados direto deste repositório.
 
+Bibliotecas usadas (já vêm instaladas no Google Colab): `pandas`, `unicodedata` e `scikit-learn`.
+
+## 🤝 Apoio
+
+Revisão com apoio de ferramenta de IA.
 
 ## 🗃 Histórico de lançamentos
 
-* 0.5.0 - XX/XX/2024
-    * 
-* 0.4.0 - XX/XX/2024
-    * 
-* 0.3.0 - XX/XX/2024
-    * 
-* 0.2.0 - XX/XX/2024
-    * 
-* 0.1.0 - XX/XX/2024
-    *
+- 0.1.0 - 06/10/2026
+  - Fase 2: extração de sintomas (Parte 1) e classificador de risco (Parte 2).
 
 ## 📋 Licença
 
