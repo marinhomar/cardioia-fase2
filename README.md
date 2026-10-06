@@ -51,6 +51,16 @@ Resultado: **acurácia de 90%** nas 10 frases de teste.
 - O mapa de conhecimento é simplificado: alguns sintomas, como falta de ar, aparecem em mais de uma doença na vida real. Este projeto é acadêmico e não substitui avaliação médica.
 - Próxima evolução: tratar palavras de intensidade ("dor da peste", "dor forte") como um peso extra no risco, e não como sintoma.
 
+## ✨ Extras (além do pedido no enunciado)
+
+- **Dicionário de sinônimos populares** (`src/parte1/sinonimos.csv`): mais de 40 formas do dia a dia de descrever um sintoma ("agonia no peito", "canseira", "canela inchada", "sem coragem pra nada"), incluindo expressões regionais e erros comuns de escrita. O sistema traduz para o termo do mapa antes de buscar, sem precisar mexer no conhecimento médico.
+- **Padronização do texto**: maiúsculas, minúsculas e acentos não atrapalham a busca ("Tórax" = "torax").
+- **Desempate por gravidade**: quando duas doenças empatam, o resultado aparece como "Inconclusivo" e o sistema sugere priorizar a mais grave, como numa triagem de pronto-socorro.
+- **Teste com linguagem popular**: o notebook da Parte 1 mostra frases novas, fora do mapa, sendo reconhecidas pelos sinônimos, além de um caso de empate.
+- **Conferência frase a frase**: o notebook da Parte 2 mostra o que o modelo acertou e errou no teste, e o erro encontrado é analisado na seção de limitações.
+- **Leitura direta do repositório**: os notebooks buscam os dados no próprio GitHub, então basta abrir no Colab e clicar em "Executar tudo", sem upload de arquivos.
+- **Código comentado em linguagem simples**: cada etapa tem um título e comentários explicando o que faz.
+
 ## 📁 Estrutura de pastas
 
 - **assets**: imagens do projeto.
