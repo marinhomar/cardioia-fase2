@@ -19,8 +19,8 @@
 ### Coordenador(a)
 - André Godoi Chiovato
 
-## 🎥 Vídeo de demonstração  # TROCAR LINK , N ESQUECER APOS GRAVAR ################
-[LINK DO VÍDEO]
+## 🎥 Vídeo de demonstração 
+https://youtu.be/ws3Fs6a6VGU
 
 ## 📜 Descrição
 
